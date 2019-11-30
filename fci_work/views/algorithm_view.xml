@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="fci_algorithm_design_view_form">
+        <field name="name">fci.algorithm.design.form</field>
+        <field name="model">fci.algorithm.design</field>
+        <field name="arch" type="xml">
+            <form string="Algorithm">
+                <header>
+                    <button string="Run Algorithm" name="call_algorithm" type="object"
+                            class="oe_highlight"/>
+                </header>
+                <sheet string="Algorithm">
+                    <div class="oe_button_box" name="button_box">
+                        <button type="action" class="oe_stat_button" icon="fa-globe icon"
+                                name="%(fci_work.act_fci_algorithm_images_view)d"
+                                context="{'search_default_algorithm_id': id}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Algorithm</span>
+                                <span class="o_stat_text">Preview</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="algorithm"/>
+                             <field name="start_node"  attrs="{'required': [('algorithm', '=', 'prim')], 'invisible': [('algorithm', '!=', 'prim')]}"/>
+                        </group>
+                        <group>
+                            <field name="number_of_nodes"/>
+                            <field name="total_cost" readonly="1" string="Graph Cost"/>
+
+                        </group>
+
+                    </group>
+                    <div class="o_row">
+                        <button string="Create Random Edges" name="create_random_edges" type="object"
+                                class="oe_highlight"/>
+                        <button string="Clear Data" name="clear_data" type="object"
+                                class="oe_highlight"/>
+                    </div>
+                    <notebook>
+                        <page string="Edges">
+                            <field name="edge_ids">
+                                <tree string="Edges" editable="bottom">
+                                    <field name="from_node"/>
+                                    <field name="to_node"/>
+                                    <field name="weight"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fci_algorithm_design_view_tree">
+        <field name="name">fci.algorithm.design.tree</field>
+        <field name="model">fci.algorithm.design</field>
+        <field name="arch" type="xml">
+            <tree string="Algorithm">
+                <field name="algorithm"/>
+                <field name="number_of_nodes"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="act_fci_algorithm_design_view">
+        <field name="name">Algorithm</field>
+        <field name="res_model">fci.algorithm.design</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="fci_algorithm_design_view_tree"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to create a new Algorithm.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_algorithm_design" name="Algorithm" sequence="1"
+              web_icon="fci_work,static/description/icon.png"/>
+
+    <menuitem parent="fci_work.menu_algorithm_design"
+              id="menu_act_fci_algorithm_design_view"
+              name="Algorithm"
+              action="act_fci_algorithm_design_view" sequence="1"/>
+</odoo>

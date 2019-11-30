@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_document_type_tree" model="ir.ui.view">
+        <field name="name">fci.algorithm.images.tree</field>
+        <field name="model">fci.algorithm.images</field>
+        <field name="arch" type="xml">
+            <tree string="Algorithm Images" create="0" edit="0">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="fci_algorithm_images_view_form">
+        <field name="name">fci.algorithm.images.form</field>
+        <field name="model">fci.algorithm.images</field>
+        <field name="arch" type="xml">
+            <form string="Algorithm Images" create="0" edit="0">
+                <sheet string="Algorithm Images">
+                    <group>
+                        <field name="name" readonly="1" nolable="1"/>
+                        <field name="image" widget="image" width="100%" height="100%" readonly="1" nolable="1"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="fci_algorithm_images_view_search" model="ir.ui.view">
+        <field name="model">fci.algorithm.images</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="act_fci_algorithm_images_view">
+        <field name="name">Algorithm Images</field>
+        <field name="res_model">fci.algorithm.images</field>
+        <field name="view_id" ref="view_document_type_tree"/>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="fci_algorithm_images_view_search"/>
+    </record>
+
+    <menuitem parent="fci_work.menu_algorithm_design"
+              id="menu_act_fci_algorithm_images_view"
+              name="Algorithm Images"
+              action="act_fci_algorithm_images_view" sequence="2"/>
+
+</odoo>

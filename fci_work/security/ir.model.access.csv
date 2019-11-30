@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fci_algorithm_design,access_fci_algorithm_design,model_fci_algorithm_design,base.group_user,1,1,1,1
+access_algorithm_design_edges,access_algorithm_design_edges,model_algorithm_design_edges,base.group_user,1,1,1,1
+access_fci_algorithm_images,access_fci_algorithm_images,model_fci_algorithm_images,base.group_user,1,1,1,1
