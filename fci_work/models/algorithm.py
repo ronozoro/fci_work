@@ -71,7 +71,8 @@ class Algorithm(models.Model):
                 'weight': item[0],
                 'algorithm_id': record.id
             } for item in my_edge_list]
-            self.env['algorithm.design.edges'].create(create_list)
+            for item in create_list:
+                self.env['algorithm.design.edges'].create(item)
         return True
 
     def make_set(self, vertice):
@@ -213,13 +214,15 @@ class Algorithm(models.Model):
                 nodes = list(range(0, record.number_of_nodes))
                 edges = list(set(edges))
                 mst, images = self.kruskal(nodes, edges)
-                self.env['fci.algorithm.images'].create(images)
+                for image in images:
+                    self.env['fci.algorithm.images'].create(image)
                 self.total_cost = sum(tree[0] for tree in mst)
             else:
                 nodes = list(range(0, record.number_of_nodes))
                 edges = set(edges)
                 mst, images = self.prim(nodes, edges, record.start_node)
-                self.env['fci.algorithm.images'].create(images)
+                for image in images:
+                    self.env['fci.algorithm.images'].create(image)
                 self.total_cost = sum(tree[0] for tree in mst)
         return True
 
