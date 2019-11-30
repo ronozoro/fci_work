@@ -6,6 +6,6 @@
     'author': "Mostafa Mohamed",
     'category': 'Other',
     "depends": ['base'],
-    'data': ['security/ir.model.access.csv','views/images_view.xml', 'views/algorithm_view.xml'],
+    'data': ['views/images_view.xml', 'views/algorithm_view.xml'],
     'installable': True,
 }

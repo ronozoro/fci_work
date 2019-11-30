@@ -67,6 +67,7 @@
     <record model="ir.actions.act_window" id="act_fci_algorithm_design_view">
         <field name="name">Algorithm</field>
         <field name="res_model">fci.algorithm.design</field>
+	<field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="fci_algorithm_design_view_tree"/>
         <field name="help" type="html">
