@@ -115,7 +115,7 @@ class Algorithm(models.Model):
             'algorithm_id': self.id,
             'image': image_value
         })
-        plt.figure()
+        plt.figure(figsize=(15,15))
         for vertice in nodes:
             self.make_set(vertice)
         for edge in edges:
@@ -140,7 +140,7 @@ class Algorithm(models.Model):
                     'algorithm_id': self.id,
                     'image': image_value
                 })
-                plt.figure()
+                plt.figure(figsize=(15,15))
         return sorted(minimum_spanning_tree), images
 
     def prim(self, nodes, edges, start):
@@ -162,7 +162,7 @@ class Algorithm(models.Model):
             'algorithm_id': self.id,
             'image': image_value
         })
-        plt.figure()
+        plt.figure(figsize=(15,15))
         conn = defaultdict(list)
         minimum_spanning_tree = []
         for c, n1, n2 in edges:
@@ -172,6 +172,31 @@ class Algorithm(models.Model):
         usable_edges = conn[nodes[start]][:]
         heapify(usable_edges)
         while usable_edges:
+            G = nx.Graph()
+            edge_list_1=[]
+            edge_list_2=[]
+            for record in usable_edges:
+                G.add_edge(record[1], record[2], weight=record[0],color='r')
+                edge_list_1.append([record[1],record[2]])
+            for item in minimum_spanning_tree:
+                G.add_edge(item[1], item[2], weight=item[0],color='b')
+                edge_list_2.append([item[1], item[2]])
+            pos = nx.spring_layout(G, k=7)
+            nx.draw_networkx_nodes(G, pos, node_size=900)
+            nx.draw_networkx_edges(G, pos, width=6,edgelist=edge_list_1,edge_color='red')
+            nx.draw_networkx_edges(G, pos, width=6,edgelist=edge_list_2,edge_color='black')
+            nx.draw_networkx_labels(G, pos)
+            edge_labels = nx.get_edge_attributes(G, 'weight')
+            nx.draw_networkx_edge_labels(G, pos=pos, edge_labels=edge_labels)
+            buffered = io.BytesIO()
+            plt.savefig(buffered, format="PNG")
+            image_value = base64.b64encode(buffered.getvalue()).decode('utf8')
+            images.append({
+                'name': 'Step in build algorithm',
+                'algorithm_id': self.id,
+                'image': image_value
+            })
+            plt.figure(figsize=(15,15))
             cost, n1, n2 = heappop(usable_edges)
             if n2 not in used:
                 G = nx.Graph()
@@ -193,7 +218,7 @@ class Algorithm(models.Model):
                     'algorithm_id': self.id,
                     'image': image_value
                 })
-                plt.figure()
+                plt.figure(figsize=(15,15))
                 for e in conn[n2]:
                     if e[2] not in used:
                         heappush(usable_edges, e)
