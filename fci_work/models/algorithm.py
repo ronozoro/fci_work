@@ -482,7 +482,6 @@ class Algorithm(models.Model):
                 graph_images = graph.dijkstra(record.start_item, record.end_item, record)
                 final_image, cost = self.get_final_dijkstra(g)
                 all_images = graph_images + final_image
-                print(all_images)
                 for image in all_images:
                     self.env['fci.algorithm.images'].create(image)
                 self.total_cost = cost
