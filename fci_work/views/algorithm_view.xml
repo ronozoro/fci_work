@@ -23,10 +23,16 @@
                     <group>
                         <group>
                             <field name="algorithm"/>
-                             <field name="start_node"  attrs="{'required': [('algorithm', '=', 'prim')], 'invisible': [('algorithm', '!=', 'prim')]}"/>
+                            <field name="start_node"
+                                   attrs="{'required': [('algorithm', '=', 'prim')], 'invisible': [('algorithm', '!=', 'prim')]}"/>
+                            <field name="start_item"
+                                   attrs="{'required': [('algorithm', 'in', ('dijkstra','max_flow'))], 'invisible': [('algorithm', 'not in', ('dijkstra','max_flow'))]}"/>
+
                         </group>
                         <group>
                             <field name="number_of_nodes"/>
+                            <field name="end_item"
+                                   attrs="{'required': [('algorithm', 'in', ('dijkstra','max_flow'))], 'invisible': [('algorithm', 'not in', ('dijkstra','max_flow'))]}"/>
                             <field name="total_cost" readonly="1" string="Graph Cost"/>
 
                         </group>
@@ -67,7 +73,7 @@
     <record model="ir.actions.act_window" id="act_fci_algorithm_design_view">
         <field name="name">Algorithm</field>
         <field name="res_model">fci.algorithm.design</field>
-	<field name="view_type">form</field>
+        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="fci_algorithm_design_view_tree"/>
         <field name="help" type="html">
